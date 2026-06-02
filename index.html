@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gerwin B. Boaloy — Virtual Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F9F7F2;
+    --ink: #1A1814;
+    --ink-mid: #4A4740;
+    --ink-light: #8A8780;
+    --ink-faint: #C8C5BE;
+    --accent: #C17D3A;
+    --accent-light: #F5EAD8;
+    --accent-dark: #8B5520;
+    --white: #FFFFFF;
+    --border: rgba(26,24,20,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(249,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-mid);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 7rem 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 6vw, 72px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--ink-mid);
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .contact-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--ink-mid);
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .contact-chip:hover { border-color: var(--accent); color: var(--accent); }
+
+  .contact-chip svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  .hero-photo-wrap {
+    position: relative;
+  }
+
+  .hero-photo {
+    width: 300px;
+    height: 380px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 12px 12px 80px 12px;
+    display: block;
+  }
+
+  .photo-badge {
+    position: absolute;
+    bottom: 24px;
+    left: -20px;
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+
+  .photo-badge-label { font-size: 10px; color: var(--ink-light); letter-spacing: 1px; text-transform: uppercase; }
+  .photo-badge-value { font-size: 15px; font-weight: 500; color: var(--ink); margin-top: 2px; }
+
+  /* SECTIONS */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-num {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+  }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta {}
+
+  .exp-date {
+    font-size: 12px;
+    color: var(--ink-light);
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+  }
+
+  .exp-type {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    background: var(--accent-light);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .exp-content {}
+
+  .exp-role {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .exp-company {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 12px;
+  }
+
+  .exp-award {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent-dark);
+    background: var(--accent-light);
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .exp-bullets li {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-mid);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--ink-faint);
+    font-size: 12px;
+    top: 3px;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .skill-card {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .skill-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .skill-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .skill-icon svg { width: 18px; height: 18px; color: var(--accent-dark); }
+
+  .skill-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+
+  .skill-desc {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.55;
+  }
+
+  /* TOOLS */
+  .tools-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tool-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-mid);
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    transition: border-color 0.2s;
+  }
+
+  .tool-pill:hover { border-color: var(--accent); }
+
+  .tool-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* CERT */
+  .cert-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    max-width: 520px;
+  }
+
+  .cert-badge {
+    width: 56px;
+    height: 56px;
+    background: var(--accent-light);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .cert-badge svg { width: 28px; height: 28px; color: var(--accent-dark); }
+
+  .cert-title { font-size: 16px; font-weight: 500; color: var(--ink); }
+  .cert-sub { font-size: 13px; color: var(--ink-light); margin-top: 4px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .hero-name { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-desc { animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-contacts { animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-photo-wrap { animation: fadeUp 0.7s 0.15s ease both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-photo-wrap { order: -1; }
+    .hero-photo { width: 100%; height: 280px; border-radius: 12px; }
+    .photo-badge { display: none; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#top">Gerwin B. Boaloy</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="top" class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Virtual Assistant · Manila, Philippines</div>
+      <h1 class="hero-name">Gerwin<br><em>Boaloy</em></h1>
+      <p class="hero-desc">Customer service and technical support professional with BPO background, real estate VA experience, and QuickBooks ProAdvisor certification. Dedicated to delivering efficient solutions and exceptional client support.</p>
+      <div class="hero-contacts">
+        <a class="contact-chip" href="tel:+639524879070">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h.96a1 1 0 0 1 .98.8l.74 3.7a1 1 0 0 1-.27.93l-1.2 1.2a16 16 0 0 0 6.66 6.66l1.2-1.2a1 1 0 0 1 .93-.27l3.7.74a1 1 0 0 1 .8.98v.96A2.5 2.5 0 0 1 18.5 21C9.94 21 3 14.06 3 5.5Z"/></svg>
+          +63 952 487 9070
+        </a>
+        <a class="contact-chip" href="mailto:gerwinboaloy@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          gerwinboaloy@gmail.com
+        </a>
+        <a class="contact-chip" href="https://linkedin.com/in/gerwinboaloy" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/gerwinboaloy
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Work Experience</h2>
+  </div>
+
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">2025 – Present</div>
+        <span class="exp-type">Part-time</span>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Health Insurance Appointment Setter</div>
+        <div class="exp-company">Weekend Shift · Remote</div>
+        <ul class="exp-bullets">
+          <li>Managed direct client communication via Textla, sending health insurance quotes based on age and qualification criteria</li>
+          <li>Scheduled appointments with licensed brokers for qualified leads</li>
+          <li>Maintained response time under 6 minutes for all incoming texts</li>
+          <li>Uploaded and managed thousands of leads into CRM; updated pipeline stages daily in Google Sheets</li>
+          <li>Kept broker's calendar up to date with appointment changes, reschedules, and cancellations in real time</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">May 2025 –<br>May 2026</div>
+        <span class="exp-type">Full-time</span>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Virtual Assistant & Appointment Setter</div>
+        <div class="exp-company">Digital Maverick · US-Based Agency</div>
+        <ul class="exp-bullets">
+          <li>Managed inbound text inquiries for a Canadian real estate sales team; qualified and converted leads into scheduled appointments (May–Dec 2025)</li>
+          <li>Conducted 200–300 outbound dials daily for Arizona Realty; secured at least 2 appointments per day consistently (Jan–May 2026)</li>
+          <li>Utilized Krisp AI Accent Conversion for clear, neutral, and professional communication with US-based clients</li>
+          <li>Operated under a designated pseudonym during calls and text follow-ups to maintain brand consistency</li>
+          <li>Tracked lead pipeline using Google Sheets; managed CRM records in Follow Up Boss, YLOPO, and Sierra Interactive</li>
+          <li>Collaborated with the sales team to improve appointment conversion rates and support performance targets</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Dec 2023 –<br>May 2025</div>
+        <span class="exp-type">Full-time</span>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Subject Matter Expert — Financial Account</div>
+        <div class="exp-company">Concentrix · Mandaluyong, Metro Manila</div>
+        <div class="exp-award">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="13" height="13"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+          Top SME · March 2025
+        </div>
+        <ul class="exp-bullets">
+          <li>Provided advanced support to agents by troubleshooting software system issues and assisting with complex customer concerns</li>
+          <li>Handled escalation calls as next-level support, guiding agents in resolving technical and process-related issues</li>
+          <li>Managed multiple teams averaging 14 agents per team, including remote employees in a work-from-home setup</li>
+          <li>Served as floater SME across multiple lines of business, supporting different teams as needed</li>
+          <li>Ensured adherence to established procedures while mentoring agents and maintaining quality standards</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Nov 2022 –<br>Dec 2023</div>
+        <span class="exp-type">Full-time</span>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Technical Support — Financial Account</div>
+        <div class="exp-company">Concentrix · Mandaluyong, Metro Manila</div>
+        <ul class="exp-bullets">
+          <li>Guided customers through software troubleshooting, installation, and accounting queries</li>
+          <li>Resolved browser, system, and application issues via phone, email, and remote desktop access</li>
+          <li>Addressed basic accounting needs and managed technical problems across multiple communication channels</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Aug –<br>Nov 2022</div>
+        <span class="exp-type">Full-time</span>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Customer Service — Travel Account</div>
+        <div class="exp-company">Concentrix · Quezon City, Metro Manila</div>
+        <ul class="exp-bullets">
+          <li>Assisted airline passengers with flight reservations, itinerary changes, baggage concerns, and loyalty program inquiries</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATION -->
+<section>
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Certification</h2>
+  </div>
+  <div class="cert-card">
+    <div class="cert-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+    </div>
+    <div>
+      <div class="cert-title">QuickBooks ProAdvisor Certification</div>
+      <div class="cert-sub">Intuit · 2025 · Bookkeeping, invoicing, payroll, accounts payable/receivable</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Core Skills</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.76 12 19.79 19.79 0 0 1 1.7 3.38 2 2 0 0 1 3.67 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.64a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="skill-name">Appointment Setting</div>
+      <div class="skill-desc">High-volume outbound calling, lead qualification, calendar management, KPI-driven performance</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="skill-name">Client Communication</div>
+      <div class="skill-desc">Phone, chat, SMS, and email support for US-based clients with professional tone</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+      </div>
+      <div class="skill-name">CRM Management</div>
+      <div class="skill-desc">Lead tracking, pipeline updates, and record management across multiple platforms</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div class="skill-name">Bookkeeping</div>
+      <div class="skill-desc">QuickBooks Online, invoicing, payroll processing, accounts payable/receivable</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div class="skill-name">Admin & Operations</div>
+      <div class="skill-desc">Scheduling, documentation, inbox management, spreadsheet and process management</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 0v10l6 3"/></svg>
+      </div>
+      <div class="skill-name">AI Tools</div>
+      <div class="skill-desc">Claude, ChatGPT, Krisp AI for accent conversion, workflow efficiency, and communication</div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Tools & Platforms</h2>
+  </div>
+  <div class="tools-wrap">
+    <div class="tool-pill"><span class="tool-dot"></span>Follow Up Boss</div>
+    <div class="tool-pill"><span class="tool-dot"></span>Salesforce</div>
+    <div class="tool-pill"><span class="tool-dot"></span>Textla</div>
+    <div class="tool-pill"><span class="tool-dot"></span>YLOPO</div>
+    <div class="tool-pill"><span class="tool-dot"></span>Sierra Interactive</div>
+    <div class="tool-pill"><span class="tool-dot"></span>QuickBooks Online</div>
+    <div class="tool-pill"><span class="tool-dot"></span>QuickBooks Online Payroll</div>
+    <div class="tool-pill"><span class="tool-dot"></span>Google Workspace</div>
+    <div class="tool-pill"><span class="tool-dot"></span>Microsoft 365</div>
+    <div class="tool-pill"><span class="tool-dot"></span>Krisp AI</div>
+    <div class="tool-pill"><span class="tool-dot"></span>ChatGPT / Claude</div>
+    <div class="tool-pill"><span class="tool-dot"></span>Canva</div>
+    <div class="tool-pill"><span class="tool-dot"></span>Google Sheets</div>
+    <div class="tool-pill"><span class="tool-dot"></span>Slack</div>
+    <div class="tool-pill"><span class="tool-dot"></span>WhatsApp Business</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Get in Touch</h2>
+  </div>
+  <p style="font-size: 16px; color: var(--ink-mid); max-width: 480px; margin-bottom: 2rem; line-height: 1.8;">
+    Available for full-time and part-time remote roles. Based in Manila, Philippines. Open to US, UK, Canadian, and Australian clients.
+  </p>
+  <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+    <a class="contact-chip" href="mailto:gerwinboaloy@gmail.com" style="font-size: 14px; padding: 10px 20px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      gerwinboaloy@gmail.com
+    </a>
+    <a class="contact-chip" href="https://linkedin.com/in/gerwinboaloy" target="_blank" style="font-size: 14px; padding: 10px 20px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a class="contact-chip" href="tel:+639524879070" style="font-size: 14px; padding: 10px 20px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h.96a1 1 0 0 1 .98.8l.74 3.7a1 1 0 0 1-.27.93l-1.2 1.2a16 16 0 0 0 6.66 6.66l1.2-1.2a1 1 0 0 1 .93-.27l3.7.74a1 1 0 0 1 .8.98v.96A2.5 2.5 0 0 1 18.5 21C9.94 21 3 14.06 3 5.5Z"/></svg>
+      +63 952 487 9070
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Gerwin B. Boaloy · Built with care · <a href="mailto:gerwinboaloy@gmail.com">gerwinboaloy@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
